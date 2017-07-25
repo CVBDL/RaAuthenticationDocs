@@ -105,7 +105,7 @@ POST /api/user
 
 ```json
 {
-  "AccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODMyMDAwMDAwMDAsImVtYWlsIjoicGF0cmljay56aG9uZ0BleGFtcGxlLmNvbSJ9.jIBK2wO6qtoAdT4v5bGaPP_ytZfIMqW_4Ofh9UTLqj4"
+  "AccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODMyMDAwMDAsImVtYWlsIjoicGF0cmljay56aG9uZ0BleGFtcGxlLmNvbSJ9.E41uEnlFDhLk_05ftd95xNdbxSuVpO1X1TTJ5uJDStE"
 }
 ```
 
