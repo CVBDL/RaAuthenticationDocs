@@ -12,7 +12,7 @@
   * [Cross Origin Resource Sharing](#cross-origin-resource-sharing)
 * [Users](#users)
   * [Get token via username and password](#get-token-via-username-and-password)
-  * [Get the authenticated user informatioin](#get-the-authenticated-user-informatioin)
+  * [Get the authenticated user details](#get-the-authenticated-user-details)
 * [Tokens](#tokens)
   * [Check a token](#check-a-token)
 
