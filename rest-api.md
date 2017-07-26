@@ -13,7 +13,7 @@
 * [Users](#users)
   * [Get token via username and password](#get-token-via-username-and-password)
   * [Get the authenticated user details](#get-the-authenticated-user-details)
-* [Tokens](#tokens)
+* [Token](#token)
   * [Check a token](#check-a-token)
 
 ## Overview
@@ -40,7 +40,7 @@ Many API methods take optional parameters. For GET requests,any parameters not
 specified as a segment in the path can be padded as an HTTP query string parameter:
 
 ```sh
-curl -i http://hostname:port/api/tokens?q=something
+curl -i http://hostname:port/api/token?q=something
 ```
 
 ### Root Endpoint
@@ -88,7 +88,37 @@ Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS
 
 ### Get token via username and password
 
-User could exchange a token via windows domain account.
+User could obtain an ID token via windows domain account.
+By default, the ID token's payload contains detail information of the user
+by searching Active Directory, it may be slow.
+But if you only want to authenticate the user without querying his(her) detailed
+information, you could specify a `scope` query parameter on the URL.
+When you specify `scope=none` on URL, the server will only authenticate the user,
+and response an ID token with basic information. It is much faster.
+
+Basic ID token payload sample:
+
+```json
+{
+  "iss": "RAAuthentication",
+  "iat": 1501054275,
+  "exp": 1501057875,
+  "aud": "patrick"
+}
+```
+
+Detailed ID token payload sample:
+
+```json
+{
+  "email": "patrick@example.com",
+  "name": "Patrick Zhong",
+  "iss": "RAAuthentication",
+  "iat": 1501054225,
+  "exp": 1501057825,
+  "aud": "patrick"
+}
+```
 
 ```text
 POST /api/user
@@ -101,11 +131,17 @@ POST /api/user
 | UserName | string | Domain account username like: patrick.    |
 | Password | string | The password.                             |
 
+#### Parameters
+
+| Name   | Type   | Description                                                                         |
+| ------ | ------ | ----------------------------------------------------------------------------------- |
+| scope  | string | Optional. It determine what resources will be retrieved. Available value: `none`.   |
+
 #### Example
 
 ```json
 {
-  "AccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODMyMDAwMDAsImVtYWlsIjoicGF0cmljay56aG9uZ0BleGFtcGxlLmNvbSJ9.E41uEnlFDhLk_05ftd95xNdbxSuVpO1X1TTJ5uJDStE"
+  "IdToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODMyMDAwMDAsImVtYWlsIjoicGF0cmljay56aG9uZ0BleGFtcGxlLmNvbSJ9.E41uEnlFDhLk_05ftd95xNdbxSuVpO1X1TTJ5uJDStE"
 }
 ```
 
@@ -135,21 +171,21 @@ POST /api/user/details
 }
 ```
 
-## Tokens
+## Token
 
 ### Check a token
 
 Validate the given JWT.
 
 ```
-POST /api/tokens/validate
+POST /api/token/validate
 ```
 
 #### Input
 
-| Name        | Type   | Description                               |
-| ----------- | ------ | ----------------------------------------- |
-| AccessToken | string | The JWT.                                  |
+| Name     | Type   | Description                               |
+| -------- | ------ | ----------------------------------------- |
+| IdToken  | string | The ID token.                             |
 
 #### Example
 
