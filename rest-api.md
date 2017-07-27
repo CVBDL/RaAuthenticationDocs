@@ -24,7 +24,8 @@ The current version is `v1`.
 
 ### Schema
 
-All API access is over HTTP. All data is sent and received as JSON.
+All API access is over `HTTPS`, and accessed from the `https://hostname/raauthentication`.
+All data is sent and received as JSON.
 
 Blank fields are included as `null` instead of being omitted.
 
@@ -40,7 +41,7 @@ Many API methods take optional parameters. For GET requests,any parameters not
 specified as a segment in the path can be padded as an HTTP query string parameter:
 
 ```sh
-curl -i http://hostname:port/api/token?q=something
+curl -i https://hostname/raauthentication/api/user?scope=none
 ```
 
 ### Root Endpoint
@@ -49,7 +50,7 @@ You can issue a `GET` request to the root endpoint to get all the endpoint
 categories that the API supports:
 
 ```sh
-curl http://hostname:port/api
+curl https://hostname/raauthentication
 ```
 
 ### Client Errors
@@ -77,7 +78,7 @@ You can read the [CORS W3C Recommendation](http://www.w3.org/TR/cors/).
 This is an example:
 
 ```sh
-curl -i http://ra.com/api/user -H "Origin: http://example.com"
+curl -i https://hostname/raauthentication/api/user -H "Origin: http://example.com"
 HTTP/1.1 200 OK
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
